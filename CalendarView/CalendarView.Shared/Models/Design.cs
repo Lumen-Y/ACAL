@@ -1,5 +1,6 @@
-﻿using System.Globalization;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Globalization;
+using static CalendarView.Shared.Models.Enums;
 
 namespace CalendarView.Shared.Models;
 
@@ -15,4 +16,9 @@ public partial class Design : ObservableObject
 
     [ObservableProperty] private bool _swapPictureAndContentInLandscape;
     [ObservableProperty] private bool _swapPictureAndContentInPortrait;
+    [ObservableProperty] private bool _showDate = true;
+    [ObservableProperty] private bool _showTime = true;
+    [ObservableProperty] private bool _showColorLegend = true;
+
+    [ObservableProperty] private PageLayout _pageLayout;
 }

@@ -18,6 +18,8 @@ public static class DateTimeExtensions
 
     public static string ToLongDayString(this DateTime dateTime, CultureInfo? cultureInfo = null) => dateTime.ToString("dddd", cultureInfo);
 
+    public static string ToLongMonthString(this DateTime dateTime, CultureInfo? cultureInfo = null) => dateTime.ToString("MMMM", cultureInfo);
+
     public static string ToShortTimeString(this DateTime dateTime, CultureInfo? cultureInfo = null) => dateTime.ToString("t", cultureInfo);
 
     public static string ToLongDateString(this DateTime dateTime, CultureInfo? cultureInfo = null) => dateTime.ToString("D", cultureInfo);
