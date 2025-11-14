@@ -12,4 +12,7 @@ public partial class Design : ObservableObject
     [ObservableProperty] private string? _pictureDirectory;
     [ObservableProperty] private string? _customBackgroundImageOverlay;
     [ObservableProperty] private double _changePictureAfterMinutes = 2;
+
+    [ObservableProperty] private bool _swapPictureAndContentInLandscape;
+    [ObservableProperty] private bool _swapPictureAndContentInPortrait;
 }

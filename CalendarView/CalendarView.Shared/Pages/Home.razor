@@ -22,11 +22,51 @@
 		background-position: center;
 		background-size: cover;
 	}
+
+	@@media screen and (orientation: portrait) {
+		.grid-container-overwrite {
+			grid-template-areas:
+				"header"
+				"@(Design.SwapPictureAndContentInPortrait ? "content" : "menu")"
+				"@(Design.SwapPictureAndContentInPortrait ? "menu" : "content")"
+				"footer";
+			grid-template-columns: 1fr;
+			grid-template-rows: @(Design.SwapPictureAndContentInPortrait ? "0fr 3fr 2fr 0fr" : "0fr 2fr 3fr 0fr");
+		}
+
+		.grid-container-overwrite div.content-overwrite {
+			grid-area: content;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			height: 66vh;
+			padding: 10px;
+			margin: 0px;
+		}
+	}
+
+	@@media screen and (orientation: landscape) {
+		.grid-container-overwrite {
+			grid-template-areas:
+				"header header"
+				"@(Design.SwapPictureAndContentInLandscape ? "content menu" : "menu content")"
+				"footer footer";
+			grid-template-columns: @(Design.SwapPictureAndContentInLandscape ? "3fr 2fr" : "2fr 3fr");
+		}
+
+		.grid-container-overwrite div.content-overwrite {
+			grid-area: content;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			height: 100vh;
+			padding: 10px;
+			margin: 0px;
+		}
+	}
 </style>
 
-<div class="grid-container" style="margin: 0px; padding: 0px; height: 100vh; width: 100%;">
-	<div class="menu background-image" style="padding: 0px 20px 15px 0px;">
-		<div style="height: 20%;">
+<div class="grid-container grid-container-overwrite" style="margin: 0px; padding: 0px; height: 100vh; width: 100%;">
+	<div class="menu background-image" style="padding: 0px 20px 15px 0px; display: flex; flex-direction: column; height: 100%;">
+		<div>
 			<div style="width: fit-content; margin: 0px 0px 0px auto; padding: 0px;">
 				<a style="font-size: 80px">@_currentTimeString</a>
 			</div>
@@ -34,9 +74,9 @@
 				<a style="font-size: 19px">@_currentDateString</a>
 			</div>
 		</div>
-		<div style="height: 50%;">
+		<div style="flex: 1;">
 		</div>
-		<div style="height: 30%; align-content: end;">
+		<div style="align-content: end;">
 			<div style="width: fit-content; margin-left: auto; margin-right: 0px;">
 				@if (CalendarViewModel.IsLoading)
 				{
@@ -59,7 +99,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="content" style="overflow-y: scroll; overflow-x: hidden; height: 100vh; padding: 10px; margin: 0px;">
+	<div class="content content-overwrite">
 		@if (CalendarViewModel.IsLoading)
 		{
 			<p>Loading calendars...</p>
@@ -165,7 +205,6 @@
 	private string _currentDateString = DateTime.Now.ToLongDateString();
 	private int _currentPictureIndex;
 	private readonly List<string> _imageBase64s = [];
-
 	private CultureInfo CurrentCulture => new(Design.Language);
 
 	private string CurrentPictureUrl => _imageBase64s.Count <= _currentPictureIndex ? string.Empty : $"data:image/jpeg;base64,{_imageBase64s[_currentPictureIndex]}";
