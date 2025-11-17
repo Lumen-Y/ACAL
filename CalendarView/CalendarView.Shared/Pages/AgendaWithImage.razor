@@ -44,15 +44,6 @@
 				"footer footer";
 			grid-template-columns: @(Design.SwapPictureAndContentInLandscape ? "3fr 2fr" : "2fr 3fr");
 		}
-
-			.grid-container-overwrite div.content-overwrite {
-				grid-area: content;
-				overflow-y: scroll;
-				overflow-x: hidden;
-				height: 100%;
-				padding: 10px;
-				margin: 0px;
-			}
 	}
 
 	.grid-container-overwrite div.content-overwrite {
@@ -66,17 +57,17 @@
 </style>
 
 <div class="grid-container grid-container-overwrite" style="margin: 0px; padding: 0px; height: 100vh; width: 100%;">
-	<div class="menu background-image" style="padding: 0px 20px 15px 0px; display: flex; flex-direction: column; height: 100vh;">
+	<div class="menu background-image" style="padding: 0px 20px 15px 0px; display: flex; flex-direction: column; height: 100%;">
 		<div>
 			@if (Design.ShowTime)
 			{
-				<div style="width: fit-content; margin: 0px auto 0px 10px; padding: 0px;">
+				<div style="width: fit-content; margin: 0px 0px 0px auto; padding: 0px;">
 					<a style="font-size: 80px">@_currentTimeString</a>
 				</div>
 			}
 			@if (Design.ShowDate)
 			{
-				<div style="width: fit-content; margin: 0px auto 10px 10px; padding: 0px;">
+				<div style="width: fit-content; margin: 0px 0px 0px auto; padding: 0px;">
 					<a style="font-size: 19px">@_currentDateString</a>
 				</div>
 			}
