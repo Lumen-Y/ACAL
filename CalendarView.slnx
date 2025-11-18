@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Testing/">
+    <Project Path="CalendarView.Core.Tests/CalendarView.Core.Tests.csproj" Id="b2e76254-84f3-4dea-8c18-76c3785d9683" />
+    <Project Path="Common.UI.Tests/Common.UI.Tests.csproj" Id="291f3695-ba43-4111-8320-79f5ad1c840a" />
+  </Folder>
   <Folder Name="/UI/">
     <Project Path="CalendarView/CalendarView.Shared/CalendarView.Shared.csproj" Id="9fd1b5e9-cc3e-4535-8a7e-2f7e2044e713" />
     <Project Path="CalendarView/CalendarView.Web/CalendarView.Web.csproj" Id="83165570-e7d7-4a5f-80a9-8e394101f723" />
