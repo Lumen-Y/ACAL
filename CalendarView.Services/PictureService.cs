@@ -9,9 +9,11 @@ public class PictureService
 
     private readonly string _pictureDirectory;
     private readonly ILogger<PictureService> _logger;
-    private Timer? _refreshTimer;
+    private readonly Timer _refreshTimer;
     private readonly List<string> _pictureBase64s = [];
     private int _currentPictureIndex = 0;
+    private readonly FileSystemWatcher? _fileSystemWatcher;
+    private bool _filesChanged = true;
 
     public string? CurrentPictureBase64 => _currentPictureIndex >= _pictureBase64s.Count ? null : _pictureBase64s[_currentPictureIndex];
 
@@ -19,9 +21,33 @@ public class PictureService
     {
         _pictureDirectory = pictureDirectory;
         _logger = logger;
-        _refreshTimer?.Change(Timeout.Infinite, Timeout.Infinite);
         _refreshTimer = new Timer(RefreshTimerCallback, null, TimeSpan.Zero, refreshInterval.Value);
         _logger.LogInformation("Refresh timer started");
+
+        if (!Directory.Exists(_pictureDirectory)) return;
+        _fileSystemWatcher = new FileSystemWatcher(_pictureDirectory)
+        {
+            NotifyFilter = NotifyFilters.Attributes
+                                 | NotifyFilters.CreationTime
+                                 | NotifyFilters.DirectoryName
+                                 | NotifyFilters.FileName
+                                 | NotifyFilters.LastAccess
+                                 | NotifyFilters.LastWrite
+                                 | NotifyFilters.Security
+                                 | NotifyFilters.Size,
+            IncludeSubdirectories = true,
+            EnableRaisingEvents = true
+        };
+
+        _fileSystemWatcher.Changed += FileSystemWatcher_Changed;
+        _fileSystemWatcher.Created += FileSystemWatcher_Changed;
+        _fileSystemWatcher.Deleted += FileSystemWatcher_Changed;
+        _fileSystemWatcher.Renamed += FileSystemWatcher_Changed;
+    }
+
+    private void FileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
+    {
+        _filesChanged = true;
     }
 
     private void RefreshTimerCallback(object? state)
@@ -32,22 +58,32 @@ public class PictureService
 
     private void UpdateCurrentPicture()
     {
-        if (_pictureBase64s.Count <= 0) LoadPictures();
+        var latestPicture = CurrentPictureBase64;
+        var reloadedPictures = LoadPicturesIfChanged();
         if (_pictureBase64s.Count <= 0) return;
-        _currentPictureIndex = (_currentPictureIndex + 1) % _pictureBase64s.Count;
+        if (reloadedPictures) _currentPictureIndex = 0;
+        for (var i = 0; latestPicture == CurrentPictureBase64 && i < 3; i++)
+        {
+            _currentPictureIndex = (_currentPictureIndex + 1) % _pictureBase64s.Count;
+        }
         _logger.LogDebug("Picture updated");
         PictureHasChanged?.Invoke(this, EventArgs.Empty);
     }
 
 
-    private void LoadPictures()
+    private bool LoadPicturesIfChanged()
     {
         _logger.LogInformation("Started loading pictures");
+        if (!_filesChanged)
+        {
+            _logger.LogInformation("No changes found. Abort loading");
+            return false;
+        }
         var tempBase64s = new List<string>();
         if (!Directory.Exists(_pictureDirectory))
         {
             _logger.LogWarning("Picture directory does not exist: {path}", _pictureDirectory);
-            return;
+            return false;
         }
         tempBase64s.AddRange(GetImageBase64s(Directory.EnumerateFiles(_pictureDirectory)));
 
@@ -68,7 +104,9 @@ public class PictureService
         var random = new Random();
         _pictureBase64s.AddRange(tempBase64s.OrderBy(_ => random.Next()));
 
+        _filesChanged = false;
         _logger.LogInformation("Finished loading pictures");
+        return true;
     }
 
     private static bool MatchesCurrentDate(string folderName)
